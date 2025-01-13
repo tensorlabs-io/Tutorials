@@ -1,90 +1,92 @@
 {
-    "title": "CompanyInfo",
-    "description": "Basic information about a company",
-    "type": "object",
-    "properties": {
-      "company": {
-        "name": "string",
-        "description": "string",
-        "industry": "string",
-        "headquarters": {
-          "address": "string",
-          "city": "string",
-          "state": "string",
-          "country": "string",
-          "zipcode": "string"
-        },
-        "founding": {
-          "year": "integer",
-          "founders": [
-            {
-              "name": "string",
-              "role": "string"
-            }
-          ]
-        },
-        "key_people": [
+  "title": "CompanyInfo",
+  "description": "Basic information about a company",
+  "type": "object",
+  "properties": {
+    "company": {
+      "name": "string",
+      "description": "string",
+      "industry": "string",
+      "headquarters": {
+        "address": "string",
+        "city": "string",
+        "state": "string",
+        "country": "string",
+        "zipcode": "string"
+      },
+      "founding": {
+        "year": "integer",
+        "founders": [
           {
             "name": "string",
-            "title": "string",
-            "biography": "string"
-          }
-        ],
-        "financials": {
-          "revenue": {
-            "value": "number",
-            "currency": "string",
-            "year": "integer"
-          }
-        },
-        "stock": {
-          "ticker": "string",
-          "exchange": "string",
-          "current_price": {
-            "value": "number",
-            "currency": "string",
-            "timestamp": "string"
-          }
-        },
-        "products_services": [
-          {
-            "category": "string",
-            "items": [
-              {
-                "name": "string",
-                "description": "string",
-                "price": {
-                  "value": "number",
-                  "currency": "string"
-                }
-              }
-            ]
-          }
-        ],
-        "competitors": [
-          {
-            "name": "string",
-            "industry": "string",
-            "key_strengths": "string"
-          }
-        ],
-        "partnerships": [
-          {
-            "partner": "string",
-            "type": "string",
-            "description": "string"
-          }
-        ],
-        "recent_news": [
-          {
-            "title": "string",
-            "date": "string",
-            "source": "string",
-            "url": "string",
-            "summary": "string"
+            "role": "string"
           }
         ]
-      }
-    },
-    "required": ["company_name"]
-  }
+      },
+      "key_people": [
+        {
+          "name": "string",
+          "title": "string",
+          "biography": "string"
+        }
+      ],
+      "financials": {
+        "revenue": {
+          "value": "number",
+          "currency": "string",
+          "year": "integer"
+        }
+      },
+      "stock": {
+        "ticker": "string",
+        "exchange": "string",
+        "current_price": {
+          "value": "number",
+          "currency": "string",
+          "timestamp": "string"
+        }
+      },
+      "products_services": [
+        {
+          "category": "string",
+          "items": [
+            {
+              "name": "string",
+              "description": "string",
+              "price": {
+                "value": "number",
+                "currency": "string"
+              }
+            }
+          ]
+        }
+      ],
+      "competitors": [
+        {
+          "name": "string",
+          "industry": "string",
+          "key_strengths": "string"
+        }
+      ],
+      "partnerships": [
+        {
+          "partner": "string",
+          "type": "string",
+          "description": "string"
+        }
+      ],
+      "recent_news": [
+        {
+          "title": "string",
+          "date": "string",
+          "source": "string",
+          "url": "string",
+          "summary": "string"
+        }
+      ]
+    }
+  },
+  "required": [
+    "company_name"
+  ]
+}

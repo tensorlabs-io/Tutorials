@@ -155,6 +155,7 @@ def reflection(state: OverallState) -> dict[str, Any]:
     if result.is_satisfactory:
         return {"is_satisfactory": result.is_satisfactory}
     else:
+        state.search_queries.extend(result.search_queries)
         return {
             "is_satisfactory": result.is_satisfactory,
             "search_queries": result.search_queries,
@@ -164,21 +165,21 @@ def reflection(state: OverallState) -> dict[str, Any]:
 
 def route_from_reflection(
     state: OverallState, config: RunnableConfig
-) -> Literal[END, "research_company"]:  # type: ignore
+) -> Literal[END, "company_researcher"]:  # type: ignore
     """Route the graph based on the reflection output."""
     # Get configuration
     configurable = Configuration.from_runnable_config(config)
 
     # If we have satisfactory results, end the process
     if state.is_satisfactory:
+        print("Satisfactory results found. Ending process.")
         return END
 
     # If results aren't satisfactory but we haven't hit max steps, continue research
     if state.reflection_steps_taken <= configurable.max_reflection_steps:
-        return "research_company"
+        print("Results not satisfactory. Continuing research.")
+        return "company_researcher"
 
-    # If we've exceeded max steps, end even if not satisfactory
-    print(state.completed_notes)
     return END
 
 
@@ -190,15 +191,15 @@ builder = StateGraph(
     config_schema=Configuration,
 )
 builder.add_node("gather_notes_extract_schema", gather_notes_extract_schema)
-builder.add_node("generate_queries", generate_queries)
-builder.add_node("research_company", research_company)
-builder.add_node("reflection", reflection)
+builder.add_node("queries_generator", generate_queries)
+builder.add_node("company_researcher", research_company)
+builder.add_node("reflector", reflection)
 
-builder.add_edge(START, "generate_queries")
-builder.add_edge("generate_queries", "research_company")
-builder.add_edge("research_company", "gather_notes_extract_schema")
-builder.add_edge("gather_notes_extract_schema", "reflection")
-builder.add_conditional_edges("reflection", route_from_reflection)
+builder.add_edge(START, "queries_generator")
+builder.add_edge("queries_generator", "company_researcher")
+builder.add_edge("company_researcher", "gather_notes_extract_schema")
+builder.add_edge("gather_notes_extract_schema", "reflector")
+builder.add_conditional_edges("reflector", route_from_reflection)
 
 # Compile
 graph = builder.compile()
